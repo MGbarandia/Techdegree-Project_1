@@ -3,7 +3,7 @@ Python Web Development Techdegree
 Project 1 - Number Guessing Game
 --------------------------------
 
-For this first project we will be using Workspaces. 
+For this first project we will be using Workspaces.
 
 NOTE: If you strongly prefer to work locally on your own computer, you can totally do that by clicking: File -> Download Workspace in the file menu after you fork the snapshot of this workspace.
 
@@ -12,9 +12,9 @@ import random
 
 
 def start_game():
-    
+
     """Psuedo-code Hints
-    
+
     When the program starts, we want to:
     ------------------------------------
     1. Display an intro/welcome message to the player.
@@ -22,11 +22,11 @@ def start_game():
     3. Continuously prompt the player for a guess.
       a. If the guess greater than the solution, display to the player "It's lower".
       b. If the guess is less than the solution, display to the player "It's higher".
-    
+
     4. Once the guess is correct, stop looping, inform the user they "Got it"
          and show how many attempts it took them to get the correct number.
     5. Let the player know the game is ending, or something that indicates the game is over.
-    
+
     ( You can add more features/enhancements if you'd like to. )
     """
 
@@ -42,15 +42,24 @@ def start_game():
     try:
         play = input("Would you like to play the Guessing game {}? (Yes/No only)  ".format(name_1))
         while play.isnumeric():
-            play = input("Would you like to play the Guessing game {}? (Yes/No only)  ".format(name_1))
+            play = input("Please enter (Yes/No only), {}!  ".format(name_1))
     except (ValueError, TypeError):
         print("Please enter (Yes or No only) not {}.".format(play))
     else:
-        if play.lower() != "y":
-            print("GoodBye {}!".format(name_1))
-            quit()
-    
-    
+        while play.lower() != "yes":
+            try:
+                if play.lower() == "no":
+                    print("Maybe you can play next time! Goodbye, {}!!".format(name_1))
+                    quit()
+                play = input("Please enter (Yes/No only), {}!  ".format(name_1))
+            except (ValueError, TypeError):
+                print("Please enter (Yes or No only) not {}.".format(play))
+            else:
+                if play == "no":
+                    print("Maybe you can play next time! Goodbye, {}!!".format(name_1))
+                    quit()
+
+
     now = ("Let the Games Begin!!")
     num = ("The rules are to guess between 1-10")
     print(welcome)
@@ -61,37 +70,63 @@ def start_game():
     # creating a variable to hold the min and the max of the guessing game.
     # using a variable to enter the tries
     # using a variable to store the guesses of the user
-        solution = random.randint(1, 10)
-        tries = 0
-        guess = -1
-    
+
     # prompting the user to pick a number
-        guess = input("Pick a number:  ")
-        guess = int(guess)
-    
+
+
+
+
     # if too low or too high the user will be prompted to go lower or higher
-        while guess != solution:
-            if guess < solution:
-                print("{} is too low!".format(guess))
-                guess = int(input("Try again. "))
-                tries = tries + 1
-            elif guess > solution:
-                print("{} is too high!".format(guess))
-                guess = int(input("Try again. "))
-                tries = tries + 1
-        tries = tries + 1
         try:
-            print("Congrats {} {} was the random number! You Won The Guessing Game! You had {} guesses!".format(name_1, guess, tries))
-            play_again = input("Would you want to play again? (Yes/No):  ")
-            while play_again.isnumeric():
-                play_again = input("Would you want to play again? (Yes/No):  ")
+            guess = input("Pick a number:  ")
+            while guess.isalpha() :
+                print("{} is not a number. Please try again!".format(guess))
+                guess = input("Pick a number:  ")
         except (ValueError, TypeError, NameError):
-                play_again = input("Would you want to play again? (Yes/No):  ")
-    
+            print("{} is not a number. Please try again!".format(guess))
         else:
-            if play_again.lower() != "yes":
-                print("See you later {}!".format(name_1))
-                quit()
+            solution = random.randint(1, 10)
+            tries = 1
+            guess = int(guess)
+            while guess != solution:
+                if guess < solution:
+                    print("{} is too low!".format(guess))
+                    guess = int(input("Try again. "))
+                    tries = tries + 1
+                elif guess > solution:
+                    print("{} is too high!".format(guess))
+                    guess = int(input("Try again. "))
+                    tries = tries + 1
+                highscore = tries
+            try:
+                print("Congrats {} {} was the random number! You Won The Guessing Game! You had {} guesses!".format(name_1, guess, tries))
+                print("Your Highscore is {}!!!".format(highscore))
+
+
+
+                play_again = input("Would you want to play again? (Yes/No):  ")
+                while play_again.isnumeric():
+                    print("Please enter (Yes/No only)")
+                    play_again = input("Would you want to play again? (Yes/No):  ")
+            except (ValueError, TypeError, NameError):
+                    play_again = input("Would you want to play again? (Yes/No):  ")
+
+            else:
+                while play_again.lower() != "yes":
+                    try:
+                        if play_again.lower() == "no":
+                            print("See you later {}!".format(name_1))
+                            quit()
+                        print("Please enter (Yes/No only)")
+                        play_again = input("Would you want to play again? (Yes/No):  ")
+                    except (ValueError, TypeError, NameError):
+                            play_again = input("Would you want to play again? (Yes/No):  ")
+                    else:
+                        if play_again == 'no':
+                            print("See you later {}!".format(name_1))
+                            quit()
+
+
         print(play_again)
         print("Alright another round {}.".format(name_1))
     # show the user the tries and what the right guess was
