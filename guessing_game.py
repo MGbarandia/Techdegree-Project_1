@@ -37,8 +37,9 @@ def start_game():
     welcome = ("Welcome {}, to the Guessing game!!!".format(name_1))
     # prompting the user if the user would like to play the Game
     # if the user uses an int the for loop would activate
-    # if the user does not enter 'y' or 'Y' the user would be exited out of the Game
-    # if the user enters 'y' or 'Y' the user would be entered in the game
+    # if the user does not enter 'yes' or 'Yes' the user would be exited out of the Game
+    # if the user enters 'yes' or 'Yes' the user would be entered in the game
+    # if the user enters a non number the game will restart
     try:
         play = input("Would you like to play the Guessing game {}? (Yes/No only)  ".format(name_1))
         while play.isnumeric():
