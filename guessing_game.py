@@ -60,11 +60,22 @@ def start_game():
                     quit()
 
 
-    now = ("Let the Games Begin!!")
-    num = ("The rules are to guess between 1-10")
+    now = ("""Let the Games Begin!!
+
+
+          """)
+    num = ("""
+           !!!The rules are to guess between the minimum and the maximum number that the user will give!!!
+
+          """)
+    error = ("""     !!!If the user enters a non number on the min, max, and the guess questions the game will restart!!!
+
+    """)
+
     print(welcome)
-    print(now)
     print(num)
+    print(error)
+    print(now)
     # everything will be used if it is True using the while loop
     while True:
     # creating a variable to hold the min and the max of the guessing game.
@@ -78,16 +89,18 @@ def start_game():
 
     # if too low or too high the user will be prompted to go lower or higher
         try:
+            maximum = int(input("Give me a max number!   "))
+            minimum = int(input("Give me a min number!   "))
             guess = input("Pick a number:  ")
-            while guess.isalpha() :
-                print("{} is not a number. Please try again!".format(guess))
-                guess = input("Pick a number:  ")
         except (ValueError, TypeError, NameError):
-            print("{} is not a number. Please try again!".format(guess))
+            print("The game will now restart")
+            start_game()
         else:
-            solution = random.randint(1, 10)
-            tries = 1
+            minimum = int(minimum)
+            maximum = int(maximum)
             guess = int(guess)
+            solution = random.randint(minimum, maximum)
+            tries = 1
             while guess != solution:
                 if guess < solution:
                     print("{} is too low!".format(guess))
