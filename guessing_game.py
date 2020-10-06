@@ -39,7 +39,6 @@ def start_game():
     # if the user uses an int the for loop would activate
     # if the user does not enter 'yes' or 'Yes' the user would be exited out of the Game
     # if the user enters 'yes' or 'Yes' the user would be entered in the game
-    # if the user enters a non number the game will restart
     try:
         play = input("Would you like to play the Guessing game {}? (Yes/No only)  ".format(name_1))
         while play.isnumeric():
@@ -61,22 +60,17 @@ def start_game():
                     quit()
 
 
-    now = ("""Let the Games Begin!!
-
-
-          """)
-    num = ("""
-           !!!The rules are to guess between the minimum and the maximum number that the user will give!!!
-
-          """)
-    error = ("""     !!!If the user enters a non number on the min, max, and the guess questions the game will restart!!!
-
-    """)
-
+    now = ("Let the Games Begin!!")
+    num = ("""The Rules:
+           1.You must give a minimum and a maximum number.
+           2.The maximum must be higher than the minimum.
+           3.The guess must be a number.
+           4.Guess the Random number.
+           >>>IF ANY OF THE RULES IS NOT FOLLOWED THE GAME WILL RESTART<<<
+           """)
     print(welcome)
-    print(num)
-    print(error)
     print(now)
+    print(num)
     # everything will be used if it is True using the while loop
     while True:
     # creating a variable to hold the min and the max of the guessing game.
@@ -90,18 +84,20 @@ def start_game():
 
     # if too low or too high the user will be prompted to go lower or higher
         try:
-            maximum = int(input("Give me a max number!   "))
             minimum = int(input("Give me a min number!   "))
+            maximum = int(input("Give me a max number!   "))
+            if minimum > maximum:
+                print("The game will now restart")
+                start_game()
             guess = input("Pick a number:  ")
-        except (ValueError, TypeError, NameError):
+            solution = random.randint(minimum, maximum)
+            tries = 1
+            guess = int(guess)
+        except (ValueError, TypeError, NameError, UnboundLocalError):
+            print("Please enter only numbers next time.")
             print("The game will now restart")
             start_game()
         else:
-            minimum = int(minimum)
-            maximum = int(maximum)
-            guess = int(guess)
-            solution = random.randint(minimum, maximum)
-            tries = 1
             while guess != solution:
                 if guess < solution:
                     print("{} is too low!".format(guess))
